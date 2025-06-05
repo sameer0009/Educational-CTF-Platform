@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Phishing Awareness Training</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .example {
+            background: #f9f9f9;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #333;
+        }
+        .warning {
+            color: #721c24;
+            background-color: #f8d7da;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .tip {
+            color: #155724;
+            background-color: #d4edda;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .interactive {
+            background: #e2e3e5;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Phishing Awareness Training</h1>
+        
+        <div class="warning">
+            <h2>Warning: What is Phishing?</h2>
+            <p>Phishing is a type of social engineering attack where attackers try to trick you into revealing sensitive information or installing malware.</p>
+        </div>
+
+        <div class="example">
+            <h3>Common Phishing Techniques:</h3>
+            <ul>
+                <li>Fake login pages</li>
+                <li>Urgent or threatening messages</li>
+                <li>Requests for personal information</li>
+                <li>Suspicious attachments</li>
+                <li>Unusual sender addresses</li>
+            </ul>
+        </div>
+
+        <div class="tip">
+            <h3>How to Protect Yourself:</h3>
+            <ul>
+                <li>Always verify the sender's email address</li>
+                <li>Check for spelling and grammar errors</li>
+                <li>Don't click on suspicious links</li>
+                <li>Never share sensitive information via email</li>
+                <li>Use two-factor authentication when possible</li>
+            </ul>
+        </div>
+
+        <div class="interactive">
+            <h3>Interactive Quiz:</h3>
+            <p>Test your knowledge about phishing awareness!</p>
+            <button class="button" onclick="startQuiz()">Start Quiz</button>
+            <div id="quiz" class="hidden">
+                <div id="question"></div>
+                <div id="options"></div>
+                <div id="result"></div>
+            </div>
+        </div>
+
+        <div class="example">
+            <h3>Example of a Phishing Email:</h3>
+            <pre>
+From: security@yourbank.com
+Subject: Urgent: Your account has been compromised!
+
+Dear Valued Customer,
+
+We have detected suspicious activity on your account.
+Please click here to verify your identity:
+http://suspicious-link.com
+
+If you don't verify within 24 hours, your account will be suspended.
+
+Best regards,
+Your Bank Security Team
+            </pre>
+        </div>
+
+        <div class="tip">
+            <h3>Red Flags in this Example:</h3>
+            <ul>
+                <li>Urgent or threatening language</li>
+                <li>Suspicious link</li>
+                <li>Generic greeting ("Valued Customer")</li>
+                <li>Request for immediate action</li>
+                <li>Poor grammar or formatting</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Which of these is a common sign of a phishing email?",
+                options: [
+                    "Professional formatting and perfect grammar",
+                    "Urgent request for personal information",
+                    "Official company logo and branding",
+                    "Links to the company's main website"
+                ],
+                correct: 1
+            },
+            {
+                question: "What should you do if you receive a suspicious email?",
+                options: [
+                    "Click the links to verify the information",
+                    "Reply with your personal information",
+                    "Forward it to your IT department or delete it",
+                    "Share it with your colleagues"
+                ],
+                correct: 2
+            },
+            {
+                question: "Which of these is NOT a safe practice?",
+                options: [
+                    "Using two-factor authentication",
+                    "Verifying sender email addresses",
+                    "Sharing passwords via email",
+                    "Checking website security certificates"
+                ],
+                correct: 2
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function startQuiz() {
+            document.getElementById('quiz').classList.remove('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = quizData[currentQuestion];
+            document.getElementById('question').innerHTML = `<h4>${question.question}</h4>`;
+            
+            const optionsHtml = question.options.map((option, index) => 
+                `<button class="button" onclick="checkAnswer(${index})">${option}</button>`
+            ).join('');
+            
+            document.getElementById('options').innerHTML = optionsHtml;
+            document.getElementById('result').innerHTML = '';
+        }
+
+        function checkAnswer(selected) {
+            const question = quizData[currentQuestion];
+            const resultDiv = document.getElementById('result');
+            
+            if (selected === question.correct) {
+                score++;
+                resultDiv.innerHTML = '<p style="color: green;">Correct! Well done!</p>';
+            } else {
+                resultDiv.innerHTML = '<p style="color: red;">Incorrect. Try to learn from this!</p>';
+            }
+            
+            currentQuestion++;
+            
+            if (currentQuestion < quizData.length) {
+                setTimeout(showQuestion, 1500);
+            } else {
+                setTimeout(() => {
+                    resultDiv.innerHTML = `<h4>Quiz completed! Your score: ${score}/${quizData.length}</h4>`;
+                    document.getElementById('options').innerHTML = '';
+                }, 1500);
+            }
+        }
+    </script>
+</body>
+</html>

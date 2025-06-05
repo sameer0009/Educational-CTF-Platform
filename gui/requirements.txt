@@ -1,0 +1,5 @@
+PyQt5==5.15.9
+bcrypt==4.0.1
+SQLite3==2.6.0
+reportlab==4.0.4
+cryptography==41.0.1 
